@@ -25,6 +25,8 @@
 		7FE8A5942AD22DC900C7A091 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE8A5932AD22DC800C7A091 /* GameBoard.swift */; };
 		7FE8A5962AD398AD00C7A091 /* SuitEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE8A5952AD398AD00C7A091 /* SuitEnum.swift */; };
 		7FE8A5982AD4E59600C7A091 /* GameState+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE8A5972AD4E59600C7A091 /* GameState+Logic.swift */; };
+		7FE8A59A2AD9CDE500C7A091 /* PileIdentificationEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE8A5992AD9CDE500C7A091 /* PileIdentificationEnum.swift */; };
+		7FE8A59C2AD9F1D100C7A091 /* PilePositions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FE8A59B2AD9F1D100C7A091 /* PilePositions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		7FE8A5932AD22DC800C7A091 /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		7FE8A5952AD398AD00C7A091 /* SuitEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuitEnum.swift; sourceTree = "<group>"; };
 		7FE8A5972AD4E59600C7A091 /* GameState+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameState+Logic.swift"; sourceTree = "<group>"; };
+		7FE8A5992AD9CDE500C7A091 /* PileIdentificationEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PileIdentificationEnum.swift; sourceTree = "<group>"; };
+		7FE8A59B2AD9F1D100C7A091 /* PilePositions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilePositions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,12 +126,14 @@
 				7FE8A5892AD1F81500C7A091 /* PileView.swift */,
 				7FE8A55E2AD1F3C400C7A091 /* GameViewController.swift */,
 				7FE8A58B2AD1FD2500C7A091 /* Card.swift */,
+				7FE8A5992AD9CDE500C7A091 /* PileIdentificationEnum.swift */,
 				7FE8A58D2AD1FD9B00C7A091 /* Deck.swift */,
 				7FE8A58F2AD208C700C7A091 /* GameState.swift */,
 				7FE8A5972AD4E59600C7A091 /* GameState+Logic.swift */,
 				7FE8A5952AD398AD00C7A091 /* SuitEnum.swift */,
 				7FE8A5932AD22DC800C7A091 /* GameBoard.swift */,
 				7FE8A5912AD2093200C7A091 /* CardPile.swift */,
+				7FE8A59B2AD9F1D100C7A091 /* PilePositions.swift */,
 				7FE8A5602AD1F3C400C7A091 /* Main.storyboard */,
 				7FE8A5632AD1F3C600C7A091 /* Assets.xcassets */,
 				7FE8A5652AD1F3C600C7A091 /* LaunchScreen.storyboard */,
@@ -290,7 +296,9 @@
 				7FE8A55D2AD1F3C400C7A091 /* GameScene.swift in Sources */,
 				7FE8A58A2AD1F81500C7A091 /* PileView.swift in Sources */,
 				7FE8A5902AD208C700C7A091 /* GameState.swift in Sources */,
+				7FE8A59C2AD9F1D100C7A091 /* PilePositions.swift in Sources */,
 				7FE8A58C2AD1FD2500C7A091 /* Card.swift in Sources */,
+				7FE8A59A2AD9CDE500C7A091 /* PileIdentificationEnum.swift in Sources */,
 				7FE8A5922AD2093200C7A091 /* CardPile.swift in Sources */,
 				7FE8A5962AD398AD00C7A091 /* SuitEnum.swift in Sources */,
 				7FE8A55F2AD1F3C400C7A091 /* GameViewController.swift in Sources */,

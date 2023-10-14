@@ -28,7 +28,13 @@ extension GameState {
         foundationPiles[1].contents = []
         foundationPiles[2].contents = []
         foundationPiles[3].contents = []
-    
+        
+        for i in 0...6 { //sets pile identities
+            for c in tableauPiles[i].contents {
+                c.location = PileIdentification(pileType: .tableau, pileNumber: PileNumber(rawValue: i) ?? .zero)
+            }
+        }
+        
         tableauPiles[0].contents.last?.flipCard() //flipping top most card to be faceup
         tableauPiles[1].contents.last?.flipCard()
         tableauPiles[2].contents.last?.flipCard()
@@ -59,17 +65,24 @@ extension GameState {
     func drawFromStock(){
         //Moves a card from stock to waste
         //TO DO: add 3 draw capability
+        print("in draw from stock")
         if stockPile.contents.count == 0 { //all stock in waste
             stockPile.contents = wastePile.contents
             for c in stockPile.contents {
                 c.flipCard()
+                c.location.pileType = .stock
+                c.position = CGPoint(x: 211.5, y: 260)
             }
             wastePile.contents = []
         } else { //draw from stock
-            let temp = stockPile.contents[0]
+            let temp = stockPile.contents.first!
+            temp.location.pileType = .waste //change loc
             stockPile.contents.removeFirst()
             wastePile.contents.append(temp)
-            wastePile.contents.last?.flipCard()
+            wastePile.contents.last?.flipCard() //flips
+            wastePile.contents.last?.position = CGPoint(x: 126.5, y: 260) //moves on board
+            wastePile.contents.last?.zPosition = CGFloat(wastePile.contents.count)
+
         }
     }
     
@@ -91,23 +104,23 @@ extension GameState {
         
         switch(movingValue) {
         case 13: //KING movement
-            if proposedDestination.identity.0 == 2 && destinationSuit.rawValue == 4 { //king moved to empty tableau
+            if proposedDestination.identity.pileType == .tableau && destinationSuit.rawValue == 4 { //king moved to empty tableau
                 return true
-            } else if proposedDestination.identity.0 == 3 && destinationSuit.rawValue != 4 && proposedDestination.contents.last!.value == movingCard.value - 1 && destinationSuit == movingSuit { //king moved to foundation
+            } else if proposedDestination.identity.pileType == .foundation && proposedDestination.contents.last?.value == movingCard.value - 1 && destinationSuit == movingSuit { //king moved to foundation
                 return true
             }
             return false
         case 1: //ACE movement
-            if proposedDestination.identity.0 == 3 && proposedDestination.identity.1 == movingSuit?.rawValue { //ace moved to foundation
+            if proposedDestination.identity.pileType == .foundation && proposedDestination.identity.pileNumber.rawValue == movingSuit?.rawValue { //ace moved to foundation
                 return true
-            } else if proposedDestination.identity.0 == 2 && (destinationSuit.isRed() != movingSuit?.isRed()) && destinationValue == 2 { //ace moved to tableau
+            } else if proposedDestination.identity.pileType == .tableau && (destinationSuit.isRed() != movingSuit?.isRed()) && destinationValue == 2 { //ace moved to tableau
                 return true
             }
             return false
         default: // 2...12 movement
-            if proposedDestination.identity.0 == 2 && (destinationSuit.isRed() != movingSuit?.isRed()) && destinationValue == movingValue + 1 { //card moved to tableau
+            if proposedDestination.identity.pileType == .tableau && (destinationSuit.isRed() != movingSuit?.isRed()) && destinationValue == movingValue + 1 { //card moved to tableau
                 return true
-            } else if proposedDestination.identity.0 == 3 && proposedDestination.identity.1 == movingSuit?.rawValue && destinationValue == movingValue - 1{ //moved to foundation
+            } else if proposedDestination.identity.pileType == .foundation && proposedDestination.identity.pileNumber.rawValue == movingSuit?.rawValue && destinationValue == movingValue - 1{ //moved to foundation
                 return true
             }
             return false
@@ -124,7 +137,7 @@ extension GameState {
             return
         }
         
-        if originPile.identity == (1,0) { //if card is coming out of waste pile
+        if originPile.identity.pileType == .waste { //if card is coming out of waste pile
             let loc: Int = originPile.contents.firstIndex(of: card) ?? 52 //set to illogical 52 loc if nil
             if loc != 52 {
                 originPile.contents.remove(at: loc)
@@ -139,29 +152,46 @@ extension GameState {
         destinationPile.contents.append(card)
     }
     
+    func tapToMove(card: Card) -> (CardPile, Double, Double) {
+        //finds a possible move to a card when tapped, prioratizes foundation piles
+        print("In tap to move cards")
+        for i in 0...3 {
+            if validateMove(movingCard: card, proposedDestination: foundationPiles[i]) {
+                return (foundationPiles[i], savedPositions.foundationPilesPos[i], savedPositions.foundationPilesPos.last!)
+            }
+        }
+        for i in 0...6 {
+            if validateMove(movingCard: card, proposedDestination: tableauPiles[i]) {
+                return (tableauPiles[i], savedPositions.tableauPilesPos[i], savedPositions.tableauPilesPos.last!)
+            }
+                
+        }
+        return (wastePile, 0.0, 0.0)
+    }
+    
     func printStateOfThings() {
         
         print("Tableau: ")
         for p in tableauPiles {
-            print("New Pile: \(p.identity)")
+            print("New Pile: \(p.identity.pileNumber)")
             for c in p.contents {
                 print("\(c.value)", terminator: ", ")
             }
             print("\n")
         }
-        print("Stock: \(stockPile.identity)")
+        print("Stock: \(stockPile.identity.pileNumber)")
         for c in stockPile.contents {
             print("\(c.value)", terminator: ", ")
         }
         print("\n")
-        print("Waste: \(wastePile.identity)")
+        print("Waste: \(wastePile.identity.pileNumber)")
         for c in wastePile.contents {
             print("\(c.value)", terminator: ", ")
         }
         print("\n")
         print("Foundations")
         for p in foundationPiles {
-            print("New Pile: \(p.identity)")
+            print("New Pile: \(p.identity.pileNumber)")
             for c in p.contents {
                 print("\(c.value)", terminator: ", ")
             }

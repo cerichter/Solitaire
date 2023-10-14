@@ -15,6 +15,7 @@ class GameState {
     var tableauPiles: [CardPile] //the 7 working piles
     
     var deck: [Card]
+    var savedPositions = pilePositions()
     
     init() {
         //creates deck of cards and emprty piles
@@ -24,43 +25,26 @@ class GameState {
         }
         
         tableauPiles = [ //empty tableau piles
-            CardPile( contents: [] ),
-            CardPile( contents: [] ),
-            CardPile( contents: [] ),
-            CardPile( contents: [] ),
-            CardPile( contents: [] ),
-            CardPile( contents: [] ),
-            CardPile( contents: [] )
+            CardPile(contents: [], identity: PileIdentification(pileType: .tableau, pileNumber: .zero)),
+            CardPile(contents: [], identity: PileIdentification(pileType: .tableau, pileNumber: .one)),
+            CardPile(contents: [], identity: PileIdentification(pileType: .tableau, pileNumber: .two)),
+            CardPile(contents: [], identity: PileIdentification(pileType: .tableau, pileNumber: .three)),
+            CardPile(contents: [], identity: PileIdentification(pileType: .tableau, pileNumber: .four)),
+            CardPile(contents: [], identity: PileIdentification(pileType: .tableau, pileNumber: .five)),
+            CardPile(contents: [],identity: PileIdentification(pileType: .tableau, pileNumber: .six))
         ]
-        stockPile = CardPile( contents: [] ) //empty stock
-        wastePile = CardPile(contents: [] ) //empty waste pile
+        stockPile = CardPile(contents: [], identity: PileIdentification(pileType: .stock, pileNumber: .zero)) //empty stock
+        wastePile = CardPile(contents: [], identity: PileIdentification(pileType: .waste, pileNumber: .zero)) //empty waste pile
         foundationPiles = [ //empty foundation piles
-            CardPile(contents: []),
-            CardPile(contents: []),
-            CardPile(contents: []),
-            CardPile(contents: [])
+            CardPile(contents: [], identity: PileIdentification(pileType: .foundation, pileNumber: .zero)),
+            CardPile(contents: [], identity: PileIdentification(pileType: .foundation, pileNumber: .one)),
+            CardPile(contents: [], identity: PileIdentification(pileType: .foundation, pileNumber: .two)),
+            CardPile(contents: [], identity: PileIdentification(pileType: .foundation, pileNumber: .three))
         ]
-        
-        //assigning identities
-        stockPile.identity = (0,0)
-        wastePile.identity = (1,0)
-        
-        foundationPiles[0].identity = (3,0)
-        foundationPiles[1].identity = (3,1)
-        foundationPiles[2].identity = (3,2)
-        foundationPiles[3].identity = (3,3)
-        
-        tableauPiles[0].identity = (2,0)
-        tableauPiles[1].identity = (2,1)
-        tableauPiles[2].identity = (2,2)
-        tableauPiles[3].identity = (2,3)
-        tableauPiles[4].identity = (2,4)
-        tableauPiles[5].identity = (2,5)
-        tableauPiles[6].identity = (2,6)
         
         deal()
-
+        
     }
     
-
+    
 }

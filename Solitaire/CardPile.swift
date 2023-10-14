@@ -10,22 +10,22 @@ import Foundation
 class CardPile {
     
     var contents: [Card]
-    var identity: (Int, Int) //0 = stock, 1 = waste, 2 = tableau, 3 = foundation
+    var identity: PileIdentification
     
-    init(contents: [Card]){
+    init(contents: [Card], identity: PileIdentification){
         
         self.contents = contents
-        self.identity = (2,0)
+        self.identity = identity
     }
     
     func addCard(newCard: Card) {
         //adds new card to stack
-        contents.insert(newCard, at: 0)
+        contents.append(newCard)
     }
     
     func removeCard() {
         //removes card from stack
-        contents.removeFirst()
+        contents.removeLast()
     }
     
 }
